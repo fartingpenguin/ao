@@ -89,12 +89,16 @@ def main():
                 print(f"{start_day} {start_date} {start_time} -> {end_time} {event['summary']} Location: {location} ")
                 # Get the distance between the locations
                 enabled = input("Enabled? ")
-                if enabled == 'Yes':
-                    result = gmaps.distance_matrix(start_location, location)
-                    # Print the result
-                    print("The distance from {} to {} is {}.".format(start_location, location, result["rows"][0]["elements"][0]["distance"]["text"]))
+                if enabled == 'yes':
+                    distance(start_location, location)
+                    # Get travel times for different modes of transportation
+                    modes = ['driving', 'transit', 'bicycling', 'walking']
+                    for mode in modes:
+                        duration = time_taken(start_location, location, mode)
+                        print(f"Travel time by {mode}: {duration}")
                     previous_end_location = location
-                else:
+
+                if enabled == 'no':
                     print("Not enabled")
 
             else:
@@ -102,6 +106,20 @@ def main():
 
     except HttpError as error:
         print('An error occurred: %s' % error)
+
+def distance (start_location, location):
+    result = gmaps.distance_matrix(start_location, location)
+    # Print the result
+    print("The distance from {} to {} is {}.".format(start_location, location, result["rows"][0]["elements"][0]["distance"]["text"]))
+
+def time_taken(start_location, location, mode):
+    distance_result = gmaps.distance_matrix(start_location, location, mode=mode)
+
+    # Get duration from result
+    for row in distance_result['rows']:
+        for element in row['elements']:
+            duration = element['duration']['text']
+            return duration
 
 if __name__ == '__main__':
     while True:
