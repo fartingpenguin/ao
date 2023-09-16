@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import time
-import requests
 import datetime
 import os.path
 from dateutil.relativedelta import relativedelta
@@ -10,6 +9,15 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import googlemaps
+from dotenv import load_dotenv
+import os
+
+def configure():
+    load_dotenv()
+
+# API for Google Maps
+gmaps = googlemaps.Client(key=os.getenv('api_key'))
 
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
@@ -32,6 +40,7 @@ def main():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
     time_range= input("How far forward would you like to plan? ")
+    home = input("Where is home? ")
 
     try:
         service = build('calendar', 'v3', credentials=creds)
@@ -71,44 +80,30 @@ def main():
             end_date = end_datetime.strftime('%d %B %Y')
             start_time = start_datetime.strftime('%I:%M %p')
             end_time = end_datetime.strftime('%I:%M %p')
+            previous_end_location = home
             location = event.get('location', 'No location provided')
+            start_location = previous_end_location
             
             # Print the event details
             if(start_date == end_date):
                 print(f"{start_day} {start_date} {start_time} -> {end_time} {event['summary']} Location: {location} ")
+                # Get the distance between the locations
+                enabled = input("Enabled? ")
+                if enabled == 'Yes':
+                    result = gmaps.distance_matrix(start_location, location)
+                    # Print the result
+                    print("The distance from {} to {} is {}.".format(start_location, location, result["rows"][0]["elements"][0]["distance"]["text"]))
+                    previous_end_location = location
+                else:
+                    print("Not enabled")
+
             else:
                 print(f"{start_day} {start_date} {start_time} -> {end_day} {end_date} {end_time} {event['summary']} Location: {location}")
 
     except HttpError as error:
         print('An error occurred: %s' % error)
 
-# def travel_time(origin, destination, api_key):
-#     # Define the endpoint URL
-#     url = "https://maps.googleapis.com/maps/api/distancematrix/json"
-
-#     # Define the parameters
-#     params = {
-#         "origins": origin,
-#         "destinations": destination,
-#         "key": api_key,
-#         "mode": "driving" # driving, walking, bicycling, transit
-#     }
-
-#     # Send the request
-#     response = requests.get(url, params=params)
-
-#     # Parse the response
-#     data = response.json()
-
-#     # Extract the travel time from the response
-#     travel_time = data["rows"][0]["elements"][0]["duration"]["text"]
-
-#     return travel_time
-
-
 if __name__ == '__main__':
     while True:
         main()
         time.sleep(2)
-    # travel_time()
-
