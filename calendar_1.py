@@ -92,15 +92,21 @@ def main():
                 print(f"{start_day} {start_date} {start_time} -> {end_day} {end_date} {end_time} {event['summary']} Location: {location}")
             
             # Get the distance between the locations
-            enabled = input("Enabled? ")
-            if enabled == 'yes':
-                distance(start_location, location)
-            # Get travel times for different modes of transportation
-                modes = ['driving', 'transit', 'bicycling', 'walking']
-                for mode in modes:
-                    duration = time_taken(start_location, location, mode)
-                    print(f"Travel time by {mode}: {duration}")
-                previous_end_location = location
+            if location != 'No location provided':
+                enabled = input("Enabled? ")
+                if enabled == 'yes':
+                    distance(start_location, location)
+                    # Get travel times for different modes of transportation
+                    modes = ['driving', 'transit', 'bicycling', 'walking']
+                    for mode in modes:
+                        try:
+                            duration = time_taken(start_location, location, mode)
+                            print(f"Travel time by {mode}: {duration}")
+                        except:
+                            print(f"Travel time by {mode}: Not available")
+                    previous_end_location = location
+            elif location == 'No location provided':
+                print("No location provided")
 
             if enabled == 'no':
                 print("Not enabled")
