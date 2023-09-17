@@ -95,7 +95,10 @@ def main():
             if location != 'No location provided':
                 enabled = input("Enabled? ")
                 if enabled == 'yes':
-                    distance(start_location, location)
+                    try:
+                        distance(start_location, location)
+                    except:
+                        print("Distance not available")
                     # Get travel times for different modes of transportation
                     modes = ['driving', 'transit', 'bicycling', 'walking']
                     for mode in modes:
@@ -108,7 +111,7 @@ def main():
             elif location == 'No location provided':
                 print("No location provided")
 
-            if enabled == 'no':
+            elif enabled == 'no':
                 print("Not enabled")
 
     except HttpError as error:
