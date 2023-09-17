@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
 </head>
 <body>
     <form method="POST" action="/" id="time_range_form">
@@ -18,12 +18,18 @@
             <th>Name</th>
             <th>Date/Time</th>
             <th>Location</th>
+            <th></th>
         </tr>
         {% for event in events %}
         <tr>
             <td>{{ event['name'] }}</td>
             <td>{{ event['datetime'] }}</td>
             <td>{{ event['location'] }}</td>
+            <td>
+                balls
+                <br>
+                balls2
+            </td>
         </tr>
         {% endfor %}
     </table>
