@@ -1,20 +1,62 @@
+h1 {
+    font-size: 50px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+td, tr {
+    background-color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+}
+
 th {
-    background-color: #000000a7; 
-    color: white;
-    padding: 10px;
-    text-align: middle;
+    background-color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: x-large;
+    padding-top: 40px;
+    font: bold;
+}
+
+#time_range_form {
+    text-align: center; /* Center-align the text inside the form */
 }
 
 /* Style for buttons */
-button {
-    padding: 5px 10px; 
-    margin: 5px; 
-    background-color:#000000a7; 
+.button {
+    padding: 8px 15px;
+    margin: 20px;
+    font-size: xx-large;
+    font:bolder;
+    background-color: #5675ff; /* Button 1 background color */
     color: white;
     border: none;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #000000e4; 
+.button:hover {
+    background-color: #7f96fd; /* Button 1 hover background color */
+}
+
+/* Style for button2 */
+.button2 {
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: #000000db; /* Button 2 background color (e.g., red) */
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 130px; /* Set a fixed width for the buttons */
+    height: 30px; /* Set a fixed height for the buttons */
+}
+
+.button2:hover {
+    background-color: #000000b7; /* Button 2 hover background color */
+}
+
+/* Style for table rows */
+td, tr, th {
+    border-bottom: 1px solid #00000035; /* Add a 1px solid line at the bottom of each row */
+    border-left: 8px solid #00000000;
+    border-right: 8px solid #00000000;
 }

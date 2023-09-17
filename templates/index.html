@@ -7,10 +7,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
 </head>
 <body>
+    <h1>
+        Calendar
+    </h1>
     <form method="POST" action="/" id="time_range_form">
-        <button type="button" id="week_button">Week</button>
-        <button type="button" id="month_button">Month</button>
-        <button type="button" id="year_button">Year</button>
+        <button type="button" class="button" id="week_button">Week</button>
+        <button type="button" class="button" id="month_button">Month</button>
+        <button type="button" class="button" id="year_button">Year</button>
         <input type="hidden" name="time_range" id="time_range" value="{{ selected_time_range }}">
     </form>
     <table>
@@ -26,9 +29,9 @@
             <td>{{ event['datetime'] }}</td>
             <td>{{ event['location'] }}</td>
             <td>
-                balls
+                <button type="button" class="button2" id="home_button">Automate?</button>
                 <br>
-                balls2
+                <button type="button" class="button2" id="calendar_button">Return Home?</button>
             </td>
         </tr>
         {% endfor %}
