@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <form method="POST" action="/" id="time_range_form">
+        <button type="button" id="week_button">Week</button>
+        <button type="button" id="month_button">Month</button>
+        <button type="button" id="year_button">Year</button>
+        <input type="hidden" name="time_range" id="time_range" value="{{ selected_time_range }}">
+    </form>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Date/Time</th>
+            <th>Location</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event['name'] }}</td>
+            <td>{{ event['datetime'] }}</td>
+            <td>{{ event['location'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        // JavaScript to handle button clicks
+        document.getElementById('week_button').addEventListener('click', function () {
+            document.getElementById('time_range').value = 'week';
+            document.getElementById('time_range_form').submit();
+        });
+
+        document.getElementById('month_button').addEventListener('click', function () {
+            document.getElementById('time_range').value = 'month';
+            document.getElementById('time_range_form').submit();
+        });
+
+        document.getElementById('year_button').addEventListener('click', function () {
+            document.getElementById('time_range').value = 'year';
+            document.getElementById('time_range_form').submit();
+        });
+    </script>
+</body>
+</html>
