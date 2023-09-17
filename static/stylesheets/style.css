@@ -4,6 +4,12 @@ h1 {
     text-align: center;
 }
 
+/* Center the table within the parent container */
+table {
+    width: 80%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the table horizontally */
+}
+
 td, tr {
     background-color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
