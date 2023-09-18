@@ -29,43 +29,48 @@
                 <td>{{ event['datetime'] }}</td>
                 <td>{{ event['location'] }}</td>
                 <td>
-                    <a href="/event/{{ event['eventId'] }}" class="button2 automate-button">Automate?</a>
+                    <button type="button" class="button2 automate-button">Automate?</button>
                     <br>
+                    <div class="event-content" style="display: none;">
+                        This is the event for {{ event['name'] }}.
+                    </div>
                 </td>
             </tr>
             {% endfor %}
         </table>
 
         <script>
-        // JavaScript to handle button clicks
-        document.getElementById('week_button').addEventListener('click', function () {
-            document.getElementById('time_range').value = 'week';
-            document.getElementById('time_range_form').submit();
-        });
+     // JavaScript to handle button clicks
+document.getElementById('week_button').addEventListener('click', function () {
+    document.getElementById('time_range').value = 'week';
+    document.getElementById('time_range_form').submit();
+});
 
-        document.getElementById('month_button').addEventListener('click', function () {
-            document.getElementById('time_range').value = 'month';
-            document.getElementById('time_range_form').submit();
-        });
+document.getElementById('month_button').addEventListener('click', function () {
+    document.getElementById('time_range').value = 'month';
+    document.getElementById('time_range_form').submit();
+});
 
-        document.getElementById('year_button').addEventListener('click', function () {
-            document.getElementById('time_range').value = 'year';
-            document.getElementById('time_range_form').submit();
-        });
+document.getElementById('year_button').addEventListener('click', function () {
+    document.getElementById('time_range').value = 'year';
+    document.getElementById('time_range_form').submit();
+});
 
-        // Add event listeners for "Automate?" buttons
-        const automateButtons = document.querySelectorAll('.automate-button');
-        automateButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                // Toggle the display of event-specific content for the clicked button's row
-                const eventContent = button.parentElement.querySelector('.event-content');
-                if (eventContent.style.display === 'none') {
-                    eventContent.style.display = 'block';
-                } else {
-                    eventContent.style.display = 'none';
-                }
-            });
-        });
+// Add event listeners for "Automate?" buttons
+const automateButtons = document.querySelectorAll('.automate-button');
+automateButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+        // Toggle the display of event-specific content for the clicked button's row
+        const eventContent = button.parentElement.querySelector('.event-content');
+        if (eventContent.style.display === 'none') {
+            eventContent.style.display = 'block';
+        } else {
+            eventContent.style.display = 'none';
+        }
+    });
+});
+
+
         </script>
     </body>
 </html>
