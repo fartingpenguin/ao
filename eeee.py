@@ -72,6 +72,81 @@ def get_google_calendar_events(time_max):
         print('An error occurred: %s' % error)
         return []
 
+<<<<<<< Updated upstream
+=======
+# Function to extract event data
+def extract_event_data(event):
+    start = event['start'].get('dateTime', event['start'].get('date'))
+    end = event['end'].get('dateTime', event['end'].get('date'))
+
+    # Convert the date and time format to a more readable format
+    start_datetime = datetime.datetime.fromisoformat(start)
+    end_datetime = datetime.datetime.fromisoformat(end)
+
+    # Extract the day, date, start time, and end time
+    start_day = start_datetime.strftime('%A')
+    start_date = start_datetime.strftime('%d %B %Y')
+    end_day = end_datetime.strftime('%A')
+    end_date = end_datetime.strftime('%d %B %Y')
+    start_time = start_datetime.strftime('%I:%M %p')
+    end_time = end_datetime.strftime('%I:%M %p')
+
+    if start_date != end_date:
+        event_data = {
+            'eventId': event['id'],  # Include eventId in event data
+            'name': event['summary'],
+            'datetime': f"{start_day} {start_date} {start_time} -> {end_day} {end_date} {end_time}",
+            'location': event.get('location', 'No location provided'),
+        }
+    elif start_date == end_date:
+        event_data = {
+            'eventId': event['id'],  # Include eventId in event data
+            'name': event['summary'],
+            'datetime': f"{start_day} {start_date} {start_time} -> {end_time}",
+            'location': event.get('location', 'No location provided'),
+        }
+    return event_data
+
+
+# Function to configure and fetch event data
+def fetch_event_data(time_range, event_name=None, event_datetime=None, event_id=None):
+    google_events = get_google_calendar_events(time_range)
+    
+    if event_name is not None and event_datetime is not None:
+        # Filter events by event_name and event_datetime
+        filtered_events = [
+            event for event in google_events 
+            if 'summary' in event and event['summary'] == event_name and 'dateTime' in event['start'] and event['start']['dateTime'] == event_datetime
+        ]
+        return filtered_events
+
+    if event_id is not None:
+        # Filter events by event_id
+        filtered_events = [
+            event for event in google_events 
+            if 'id' in event and event['id'] == event_id
+        ]
+        return filtered_events
+
+    events = [extract_event_data(event) for event in google_events if 'summary' in event]
+    return events
+
+@app.route('/event/<event_id>')
+def event_specific(event_id):
+    print(f'Received event_id: {event_id}')
+    
+    # Fetch event data based on event_id
+    events = fetch_event_data(None, event_id=event_id)
+    
+    print(f'Fetched events: {events}')
+
+    if events:
+        event = events[0]  # Assume there's only one event with the given eventId
+        return render_template('event_specific.html', event=event)
+    else:
+        return "Event not found"
+
+>>>>>>> Stashed changes
 @app.route('/', methods=['GET', 'POST'])
 def event_list():
     if request.method == 'POST':
