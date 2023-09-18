@@ -15,6 +15,18 @@ import os
 
 app = Flask(__name__)
 
+@app.route('/event1')
+def event1():
+    # Add code to handle the first event page here
+    return "This is Event 1"
+
+@app.route('/event2')
+def event2():
+    # Add code to handle the second event page here
+    return "This is ()"
+
+# Add more routes for other events as needed
+
 def configure():
     load_dotenv()
 
