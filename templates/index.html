@@ -30,8 +30,6 @@
             <td>{{ event['location'] }}</td>
             <td>
                 <button type="button" class="button2" id="automate_button">Automate?</button>
-                <br>
-                <button type="button" class="button2" id="home_button">Return Home?</button>
             </td>
         </tr>
         {% endfor %}
@@ -52,10 +50,6 @@
         document.getElementById('year_button').addEventListener('click', function () {
             document.getElementById('time_range').value = 'year';
             document.getElementById('time_range_form').submit();
-        });
-
-        document.getElementById('automate_button').addEventListener('click', function () {
-            document.getElementById('enabled').value = 'yes';
         });
     </script>
 </body>
