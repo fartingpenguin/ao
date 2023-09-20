@@ -3,19 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ event['name'] }} Details</title>
+    <title>{{ event['summary'] }} Details</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
 </head>
 <body>
-    <h1>{{ event['name'] }} Details</h1>
-    <table>
-        {% for key, value in event.items() %}
-        <tr>
-            <th>{{ key }}</th>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <a href="/" class="button">Back to Event List</a>
+    <div>
+        <h1>{{ event['summary'] }} Details</h1>
+        <form method="POST">
+            <label for="start_address">Custom Start Address:</label>
+            <br>
+            <input type="text" id="start_address" name="start_address" placeholder="gimme yo address">
+            <button type="submit" class="button2">Update</button>
+        </form>
+        <form id="earlier-arrival-form" method="POST">
+            <label>Choose Earlier Arrival Time:</label>
+            <button type="submit" name="earlier_arrival" value="5">5 minutes</button>
+            <button type="submit" name="earlier_arrival" value="10">10 minutes</button>
+            <button type="submit" name="earlier_arrival" value="15">15 minutes</button>
+        </form>
+        
+        <table>
+            <tr>
+                <th>Date and Time</th>
+                <td>{{ event['start'] }} - {{ event['end'] }}</td>
+            </tr>
+            <tr>
+                <th>Event Location</th>
+                <td>{{ event['location'] }}</td>
+            </tr>
+            <tr>
+                <th colspan="4">Travel Information by Mode</th>
+            </tr>
+            {% for mode, data in mode_data.items() %}
+                <!-- Add emissions information to the table -->
+            <tr>
+                <th>Mode: {{ mode }}</th>
+                <td>Distance: {{ data['distance'] }}</td>
+                <td>Time Taken: {{ data['time_taken'] }}</td>
+                <td>
+                    {% if mode == 'driving' %}
+                        Uber Price: $
+                    {% endif %}
+                    {% if mode == 'transit' %}
+                        Price: $
+                    {% endif %}
+                    ${{ data['price'] }}
+                </td>
+            </tr>
+            <tr>
+                <th>Departure Time</th>
+                <td>{{ data['departure_time'] }}</td>
+                <th>Carbon Emissions</th>
+                <td>{{ data['emissions'] }} g CO2</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+        
+        
+        
+                
+        <a href="/" class="back-button">Back to Event List</a>
+    </div>
 </body>
 </html>
