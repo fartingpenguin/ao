@@ -12,14 +12,8 @@
         <form method="POST">
             <label for="start_address">Custom Start Address:</label>
             <br>
-            <input type="text" id="start_address" name="start_address" placeholder="gimme yo address">
+            <input type="text" id="start_address" name="start_address" placeholder="Address">
             <button type="submit" class="button2">Update</button>
-        </form>
-        <form id="earlier-arrival-form" method="POST">
-            <label>Choose Earlier Arrival Time:</label>
-            <button type="submit" name="earlier_arrival" value="5">5 minutes</button>
-            <button type="submit" name="earlier_arrival" value="10">10 minutes</button>
-            <button type="submit" name="earlier_arrival" value="15">15 minutes</button>
         </form>
         
         <table>
@@ -59,10 +53,6 @@
             {% endfor %}
 
         </table>
-        
-        
-        
-                
         <a href="/" class="back-button">Back to Event List</a>
     </div>
 </body>
